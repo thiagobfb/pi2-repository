@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<h:form id="formLogin">
+			<p:panelGrid columns="3">
+				<p:outputLabel value="CPF: " for="campo-login" />
+				<p:inputText id="campoCpf" value="#{realizarLoginMB.cpf}" required="true" />
+				<p:message for="campoCpf" />
+				
+				<p:outputLabel value="Senha: " for="campo-senha" />
+				<p:password id="campoSenha" value="#{realizarLoginMB.senha}" required="true" />
+				<p:message for="campoSenha" />
+			</p:panelGrid>
+			<p:commandButton value="Entrar" action="#{realizarLoginMB.efetuarLogin}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
