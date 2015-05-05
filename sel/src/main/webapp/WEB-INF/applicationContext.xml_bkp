@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
+
+	<context:annotation-config />
+	
+	<!-- Scan for all of Spring components such as Spring Service -->
+	<context:component-scan base-package="br.upis.sel.model.entity" />
+	<context:component-scan base-package="br.upis.sel.model.dao" />
+    <context:component-scan base-package="br.upis.sel.controller.bo" />
+    <context:component-scan base-package="br.upis.sel.controller.bo.impl" />
+    <context:component-scan base-package="br.upis.sel.controller.facade" />
+    <context:component-scan base-package="br.upis.sel.view.mb" />
+ 
+    <!-- Necessary to get the entity manager injected into the factory bean -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />   
+ 
+    <!-- Define Hibernate JPA Vendor Adapter -->
+    <bean id="jpaVendorAdapter"
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform"
+            value="org.hibernate.dialect.MySQLDialect" />
+    </bean>   
+ 
+    <!-- Entity Manager Factory -->
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="hibernate.jpa"></property>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+    </bean>
+ 
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+ 
+    <!-- Detect @Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <jpa:repositories base-package="br.upis.sel.model.dao" 
+    	entity-manager-factory-ref="entityManagerFactory"
+        transaction-manager-ref="transactionManager" />
+
+</beans>
