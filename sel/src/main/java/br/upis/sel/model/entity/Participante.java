@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,11 +21,25 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.upis.sel.enums.ParticipanteStatus;
+
 @Entity
 @Table(name="tb_participante")
 public class Participante implements UserDetails {
 
 	private static final long serialVersionUID = -558847129204545L;
+	
+	public Participante() {
+	}
+	
+	public Participante(String nome, String password, String username,
+			ParticipanteStatus status, List<Perfil> perfis) {
+		this.nome = nome;
+		this.password = password;
+		this.username = username;
+		this.status = status;
+		this.perfis = perfis;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,7 +56,8 @@ public class Participante implements UserDetails {
 	private String username;
 	
 	@Column(name = "participante_status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private ParticipanteStatus status;
 	
 	@ManyToMany
     @JoinTable(name = "participante_perfil", joinColumns = { @JoinColumn(name = "participante_id") }, inverseJoinColumns = { @JoinColumn(name = "perfil_id") })
@@ -81,11 +98,11 @@ public class Participante implements UserDetails {
 		this.username = username;
 	}
 
-	public String getStatus() {
+	public ParticipanteStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ParticipanteStatus status) {
 		this.status = status;
 	}
 	
@@ -106,25 +123,25 @@ public class Participante implements UserDetails {
 	@Override
 	@Transient
 	public boolean isAccountNonExpired() {
-		return this.status == "ATIVO";
+		return this.status.equals(ParticipanteStatus.ATIVO);
 	}
 
 	@Override
 	@Transient
 	public boolean isAccountNonLocked() {
-		return this.status == "ATIVO";
+		return this.status.equals(ParticipanteStatus.ATIVO);
 	}
 
 	@Override
 	@Transient
 	public boolean isCredentialsNonExpired() {
-		return this.status == "ATIVO";
+		return this.status.equals(ParticipanteStatus.ATIVO);
 	}
 
 	@Override
 	@Transient
 	public boolean isEnabled() {
-		return this.status == "ATIVO";
+		return this.status.equals(ParticipanteStatus.ATIVO);
 	}
 
 	@Override

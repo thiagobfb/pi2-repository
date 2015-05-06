@@ -82,36 +82,26 @@ public class SELSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {	
-		http.authorizeRequests().antMatchers("/resources/**").permitAll()
-				.antMatchers("/pages/public/**").permitAll()
+		http.authorizeRequests()
+				.antMatchers("/","/pages/public/**", "/resources/**").permitAll()
 				.anyRequest().authenticated().and().csrf().disable()
-				.formLogin().loginPage("/pages/public/login.jsp").permitAll()
-				.defaultSuccessUrl("/pages/private/index.jsf").and()
+				.formLogin().loginPage("/login.jsp").permitAll()
+				.defaultSuccessUrl("/pages/private/index.jsf").failureUrl("/login.jsp?err=1").and()
 				.logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/pages/public/login.jsp")
+                .logoutSuccessUrl("/login.jsp")
                 .permitAll()
                 .and()
              .httpBasic();
-		 http.exceptionHandling().accessDeniedPage("/pages/error/errorPage.jsf");
+//		 http.exceptionHandling().accessDeniedPage("/pages/error/errorPage.jsf");
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
 		DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
-		dao.setPasswordEncoder(new ShaPasswordEncoder());
-		//dao.setUserDetailsService(this.realizarLoginBO);
-		dao.setUserDetailsService(new UserDetailsService() {
-			
-			@Override
-			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-				Participante p =new Participante();
-				p.setNome(username);
-				p.setPassword( new ShaPasswordEncoder().encodePassword("123", null));
-				System.out.println("Pegando usuário " + username);
-				return p;
-			}
-		});
+		dao.setPasswordEncoder(new ShaPasswordEncoder(256));
+		dao.setUserDetailsService(this.realizarLoginBO);
+		auth.authenticationProvider(dao);
 		// auth.userDetailsService(userDetailsService)
 		//
 		//

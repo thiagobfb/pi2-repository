@@ -21,9 +21,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@ComponentScan(basePackages = {"br.upis.sel"})
-@EnableJpaRepositories(basePackages = {"br.upis.sel.model.dao"})
-@Import(value = {SELSecurityConfig.class})
+@ComponentScan(basePackages = {"br.upis.sel.model.*", "br.upis.sel.controller.*", "br.upis.sel.view.mb"})
+@EnableJpaRepositories(basePackages = {"br.upis.sel.model.dao"}, entityManagerFactoryRef="entityManagerFactory", transactionManagerRef = "transactionManager")
+@Import(value = { SELMvcConfig.class, SELSecurityConfig.class})
 public class SELConfig {
 	
 	private static final String ENTITY_PACKAGE = "br.upis.sel.model.entity";
@@ -50,7 +50,7 @@ public class SELConfig {
 		dataSource.setDriverClassName(DRIVER_CLASS_NAME);
 		dataSource.setUrl(SCHEMA_URL);
 		dataSource.setUsername("root");
-		dataSource.setPassword("1234");
+		dataSource.setPassword("root");
 		return dataSource;
 	}
 
@@ -71,7 +71,7 @@ public class SELConfig {
 
 	Properties getAdditionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.dialect",	"org.hibernate.dialect.MySQL5Dialect");
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.format_sql", "true");

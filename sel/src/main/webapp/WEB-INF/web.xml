@@ -46,6 +46,6 @@
 <!--   <url-pattern>*.jsf</url-pattern> -->
 <!--  </servlet-mapping> -->
  <welcome-file-list>
-  <welcome-file>/pages/public/login.jsp</welcome-file>
+  <welcome-file>/login.jsp</welcome-file>
  </welcome-file-list>
 </web-app>

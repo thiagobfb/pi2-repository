@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets ">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Sistema de Leião Eletrônico</title>
@@ -10,6 +12,7 @@
 	<div id="header">
 		<img src="imagens/k19-logo.png" />
 		<hr />
+		<p:messages />
 	</div>
 	<ui:insert name="conteudo">
 	Espaço para o conteúdo da tela
@@ -17,7 +20,7 @@
 
 	<div id="footer" style="text-align: center">
 		<hr />
-		&copy; 2015 UPIS. Todos os direitos reservados.
+		2015 UPIS. Todos os direitos reservados.
 	</div>
 </h:body>
 </html>

@@ -9,15 +9,16 @@
 	<ui:define name="conteudo">
 		<h:form id="formLogin">
 			<p:panelGrid columns="3">
-				<p:outputLabel value="CPF: " for="campo-login" />
-				<p:inputText id="campoCpf" value="#{realizarLoginMB.cpf}" required="true" />
+				<p:outputLabel value="CPF: " for="campoCpf" />
+				<p:inputText id="campoCpf" />
 				<p:message for="campoCpf" />
 				
-				<p:outputLabel value="Senha: " for="campo-senha" />
-				<p:password id="campoSenha" value="#{realizarLoginMB.senha}" required="true" />
+				<p:outputLabel value="Senha: " for="campoSenha" />
+				<p:password id="campoSenha"  />
 				<p:message for="campoSenha" />
+
+				<p:commandButton value="Entrar" />
 			</p:panelGrid>
-			<p:commandButton value="Entrar" action="#{realizarLoginMB.efetuarLogin}" />
 		</h:form>
 	</ui:define>
 </ui:composition>
