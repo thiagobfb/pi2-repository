@@ -9,18 +9,45 @@
 	<title>Sistema de Leião Eletrônico</title>
 </h:head>
 <h:body>
-	<div id="header">
-		<img src="imagens/k19-logo.png" />
-		<hr />
-		<p:messages />
-	</div>
-	<ui:insert name="conteudo">
-	Espaço para o conteúdo da tela
-	</ui:insert>
-
-	<div id="footer" style="text-align: center">
-		<hr />
-		2015 UPIS. Todos os direitos reservados.
+	<h:outputStylesheet name="bootstrap.css" library="css" />
+	<h:outputStylesheet name="bootstrap.min.css" library="css" />
+	<h:outputStylesheet name="bootstrap-responsive.css" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.css" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
+	<h:outputScript name="jquery-1.11.3.js" library="js" />
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputScript name="bootstrap.min.js" library="js" />
+	<div class="container">
+		<div id="header">
+				<h:graphicImage library="img" name="layout_upis_02.gif" />
+				<hr />
+				<h:form>
+					<p:menubar id="menuPrincipal">
+						<p:menuitem value="Realizar Leilão" url="#" />
+						<p:menuitem  value="Leilões" url="#" />
+						<p:submenu label="Participantes">
+							<p:menuitem value="Leiloeiros" url="#" />
+							<p:menuitem value="Comitentes" url="#" />
+							<p:menuitem value="Arrematantes" url="#" />
+							<p:menuitem value="Administradores" action="administradores" />
+						</p:submenu>
+						<p:menuitem value="Lotes" url="#" />
+						<p:menuitem value="Itens" url="#" />
+						<p:menuitem value="Logout" url="/logout" icon="ui-icon-extlink" />
+					</p:menubar>
+				</h:form>
+				<br />
+				<p:messages />
+				<br />
+			</div>
+			<ui:insert name="conteudo">
+			Espaço para o conteúdo da tela
+			</ui:insert>
+		
+			<div id="footer" style="text-align: center">
+				<hr />
+				2015 UPIS. Todos os direitos reservados.
+			</div>
 	</div>
 </h:body>
 </html>

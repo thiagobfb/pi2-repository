@@ -6,19 +6,19 @@
 <html lang="br" xmlns:th="http://www.thymeleaf.org"
 	xmlns:tiles="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta charset="UTF-8" />
-<title>SEL - Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8" />
+	<title>SEL - Login</title>
 
-<link href="resources/css/bootstrap.css" rel="stylesheet" />
-<link href="resources/css/bootstrap-responsive.css" rel="stylesheet" />
-<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/css/bootstrap-theme.css" rel="stylesheet" />
-<link href="resources/css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="resources/css/bootstrap.css" rel="stylesheet" />
+	<link href="resources/css/bootstrap-responsive.css" rel="stylesheet" />
+	<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="resources/css/bootstrap-theme.css" rel="stylesheet" />
+	<link href="resources/css/bootstrap-theme.min.css" rel="stylesheet" />
 
-<!-- 			<script type="text/javascript" src="/resources/js/bootstrap.js"></script> -->
-<!-- 			<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script> -->
-<!-- 			<script type="text/javascript" src="/resources/js/jquery-1.11.3.js"></script> -->
+	<script type="text/javascript" src='<c:url value="resources/js/jquery-1.11.3.js"></c:url>'></script>
+	<script type="text/javascript" src='<c:url value="resources/js/bootstrap.js"></c:url>'></script>
+	<script type="text/javascript" src='<c:url value="resources/js/bootstrap.min.js"></c:url>'></script>
 </head>
 
 <body>
@@ -30,9 +30,9 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6 col-md-4">
-				<h3>Login</h3>
 				<fieldset>
-					<form action="/sel/login.jsp" method="post">
+					<legend>Login</legend>
+					<form action='<c:url value="/login.jsp"></c:url>' method="post">
 						<input type="hidden" id="autentication" name="username" />
 						<div class="form-group has-success has-error has-feedback">
 							<label for="cpf">CPF: </label>
@@ -57,7 +57,7 @@
 	<script type="text/javascript">
 		function atualiza(){
 			autentication.value=cpf.value;
-			alert(autentication.value);
+// 			alert(autentication.value);
 		}
 	</script>
 </body>

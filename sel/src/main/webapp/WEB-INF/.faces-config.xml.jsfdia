@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#private#index.xhtml"
+  PATH="/pages/private/index.xhtml" SHAPE="70,128,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#private#index.xhtml:0" NAME="item"
+   PATH="/pages/private/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="administradores::#pages#private#manterParticipantes#administradores.xhtml"
+    NAME="output"
+    PATH="/pages/private/manterParticipantes/administradores.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#administradores.xhtml"
+    TITLE="administradores" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#private#manterParticipantes#administradores.xhtml"
+  PATH="/pages/private/manterParticipantes/administradores.xhtml"
+  SHAPE="224,80,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#pages#private#manterParticipantes#administradores.xhtml:0"
+   NAME="item"
+   PATH="/pages/private/manterParticipantes/administradores.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    SHAPE="273,112,392,112,392,224,48,224,48,136,63,136"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

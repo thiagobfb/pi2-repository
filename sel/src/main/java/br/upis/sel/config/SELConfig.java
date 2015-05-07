@@ -1,11 +1,14 @@
 package br.upis.sel.config;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +23,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import br.upis.sel.util.ViewScope;
+
+/**
+ * 
+ * @author THIAGO
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = {"br.upis.sel.model.*", "br.upis.sel.controller.*", "br.upis.sel.view.mb"})
 @EnableJpaRepositories(basePackages = {"br.upis.sel.model.dao"}, entityManagerFactoryRef="entityManagerFactory", transactionManagerRef = "transactionManager")
@@ -29,6 +39,11 @@ public class SELConfig {
 	private static final String ENTITY_PACKAGE = "br.upis.sel.model.entity";
 	private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 	private static final String SCHEMA_URL = "jdbc:mysql://localhost:3306/pi2project-db";
+	private static final String DB_USER = "root";
+	
+	//Senha pode variar de acordo com o ambiente
+	private static final String DB_PASSWORD = "root";
+//	private static final String DB_PASSWORD = "1234";
 
 	//Spring JPA
 	@Bean(name = "entityManagerFactory")
@@ -49,8 +64,8 @@ public class SELConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(DRIVER_CLASS_NAME);
 		dataSource.setUrl(SCHEMA_URL);
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
+		dataSource.setUsername(DB_USER);
+		dataSource.setPassword(DB_PASSWORD);
 		return dataSource;
 	}
 
@@ -78,4 +93,15 @@ public class SELConfig {
 		return properties;
 	}
 	
+	
+	//Customizando a View Scope para Spring
+	@Bean
+	public CustomScopeConfigurer getCustomScope() {
+		CustomScopeConfigurer configurer = new CustomScopeConfigurer();
+		Map<String, Object> customScopes = new HashMap<String, Object>();
+		customScopes.put("view", new ViewScope());
+		configurer.setScopes(customScopes);
+		
+		return configurer;
+	}
 }

@@ -40,11 +40,16 @@ public class RealizarLoginBOImpl implements RealizarLoginBO {
 	@Override
 	public UserDetails loadUserByUsername(String cpf)
 			throws UsernameNotFoundException {
-		Participante participante = this.participanteDAO.findByUsername(cpf);
-		if (participante != null) {
-			return participante;			
-		} else {
-			throw new UsernameNotFoundException("Usuário Não Encontrado!");
+		try {
+			Participante participante = this.participanteDAO.findByUsername(cpf);
+			if (participante != null) {
+				return participante;			
+			} else {
+				throw new UsernameNotFoundException("Usuário Não Encontrado!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
