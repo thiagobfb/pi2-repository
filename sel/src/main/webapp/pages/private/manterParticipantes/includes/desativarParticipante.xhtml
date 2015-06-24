@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="partDesDlg" id="partDesDlgId" height="150" width="500" modal="true" closable="false" draggable="false" resizable="false">
+		<h:form id="partDesDlgForm" prependId="false">
+			<h:outputText value="Desativar #{manterParticipanteMB.participante.nome}?" /><br/><br/>
+
+			<p:commandButton value="Sim" icon="ui-icon-plus" action="#{manterParticipanteMB.desativarParticipante()}" oncomplete="closeDialogIfSucess(xhr, status, args, partDesDlg 'partDesDlgId')" />
+			<p:commandButton value="Não" icon="ui-icon-cancel" actionListener="#{manterParticipanteMB.zerarParticipante()}" onclick="PF('partDesDlg').hide();" type="button" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="arremateDlg" id="arremateDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="arremateDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				
+				<p:outputLabel for="campoCodigoLoteArremate" value="Código: " />
+				<p:inputText id="campoCodigoLoteArremate" value="#{realizarLeilaoMB.lote.idLote}" disabled="true" />
+				<p:message for="campoCodigoLoteArremate" />
+				
+				<p:outputLabel for="campoValorArremate" value="Valor Arremate: " />
+				<p:inputText id="campoValorArremate" value="#{realizarLeilaoMB.lote.valorLanceFinal}" required="true" requiredMessage="Digite o preço do Item" styleClass="valorMoeda">
+					<f:converter converterId="moedaConverter"/>
+				</p:inputText>
+				<p:message for="campoValorArremate" />
+				
+				<p:outputLabel for="arrematante" value="Arrematante: " />
+				<p:autoComplete id="arrematante" value="#{realizarLeilaoMB.lote.arrematante}" required="true" requiredMessage="Adicione o arrematante" completeMethod="#{realizarLeilaoMB.completeParticipantes}" var="arrematante" itemLabel="#{arrematante.nome}" itemValue="#{arrematante}" converter="genericConverter" forceSelection="true" />
+				<p:message for="arrematante" />		
+			
+			</p:panelGrid>
+			
+			<p:commandButton value="Finalizar Arremate" action="#{realizarLeilaoMB.arrematarLote()}" oncomplete="closeDialogIfSucess(xhr, status, args, arremateDlg 'arremateDlgId')" />
+			<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('arremateDlg').hide();" />
+		</h:form>
+		<script type="text/javascript">
+		$(document).ready(mascaraValorItem);
+		</script>
+	</p:dialog>
+</h:body>
+</html>

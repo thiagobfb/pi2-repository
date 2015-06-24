@@ -69,7 +69,7 @@ public class SELSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/","/pages/public/**", "/resources/**").permitAll()
 				.anyRequest().authenticated().and().csrf().disable()
 				.formLogin().loginPage("/login.jsp").permitAll()
-				.defaultSuccessUrl("/pages/private/index.jsf").failureUrl("/login.jsp?err=1").and()
+				.defaultSuccessUrl("/pages/private/index.xhtml").failureUrl("/login.jsp?err").and()
 				.logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/login.jsp")
                 .permitAll()

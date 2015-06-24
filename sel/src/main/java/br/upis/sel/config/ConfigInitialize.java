@@ -39,7 +39,8 @@ public class ConfigInitialize extends AbstractAnnotationConfigDispatcherServletI
         servletContext.setInitParameter("javax.faces.PROJECT_STAGE","Development");
         // Causes Facelets to refresh templates during development
         servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD",     "1");
-        
+        //Set default timezone as system timezone
+        servletContext.setInitParameter("javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE", "true");
         servletContext.setInitParameter("primefaces.THEME", "glass-x");
 //        // Declare Spring Security Facelets tag library
 //        servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES",  "/WEB-INF/springsecurity.taglib.xml");
@@ -48,7 +49,7 @@ public class ConfigInitialize extends AbstractAnnotationConfigDispatcherServletI
 
         ServletRegistration.Dynamic facesServlet = servletContext.addServlet("Faces Servlet", FacesServlet.class);
         facesServlet.setLoadOnStartup(1);
-        facesServlet.addMapping("*.jsf");
+        facesServlet.addMapping("*.xhtml");
         // Let the DispatcherServlet be registered
         super.onStartup(servletContext);
     }

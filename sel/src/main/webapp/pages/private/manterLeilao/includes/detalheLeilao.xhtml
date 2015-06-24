@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="leilaoDetDlg" id="leilaoDetDlgId" width="500" modal="true" closable="false" draggable="false" resizable="false" header="Detalhes do Leilão">
+<!-- 		prependId="false" -->
+		<h:form id="leilaoDetDlgForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="Código Leilão: " />
+				<h:outputText value="#{manterLeilaoMB.leilao.idLeilao}" />
+				
+				<h:outputText value="Nome: " />
+				<h:outputText value="#{manterLeilaoMB.leilao.nome}" />
+				
+				<h:outputText value="Local: " />
+				<h:outputText value="#{manterLeilaoMB.leilao.local}" />
+				
+				<h:outputText value="Dia e Hora: " />
+				<h:outputText value="#{manterLeilaoMB.leilao.data}">
+					<f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+				</h:outputText>
+				
+				<h:outputText value="Status: " />
+				<h:outputText value="#{manterLeilaoMB.leilao.status}" />
+			</h:panelGrid>
+ 			<br />
+ 			<br />
+			<p:dataTable value="#{manterLeilaoMB.leilao.leiloeiros}" var="leiloeiro">
+				<f:facet name="header">
+					<h:outputText value="Leiloeiros" />
+				</f:facet>
+				<p:column headerText="Nome">
+					<h:outputText value="#{leiloeiro.nome}" />
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<br />
+			<p:dataTable value="#{manterLeilaoMB.leilao.lotes}" var="lote">
+				<f:facet name="header">
+					<h:outputText value="Lotes" />
+				</f:facet>
+				<p:column headerText="Código">
+					<h:outputText value="#{lote.idLote}" />
+				</p:column>
+				
+				<p:column headerText="Ação">
+					<p:commandLink value="Ver Itens" onclick="PF('leilaoDetDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('visualizarItensDlg').show();" update=":visualizarItensDlgId" ajax="true">
+						<f:setPropertyActionListener target="#{manterLoteMB.lote}" value="#{lote}" />
+<!-- 					<f:param name="loteId" id="loteId" value="#{lote.idLote}" /> -->
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton value="OK" icon="ui-icon-arrow-1-w" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('loteDetDlg').hide();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

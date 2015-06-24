@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="loteItemDlg" id="loteItemDlgId" width="500" modal="true" closable="false" draggable="false" resizable="false" header="Itens do Lote">
+<!-- 		prependId="false" -->
+		<h:form id="loteItemDlgForm" prependId="false">			
+			<p:dataTable value="#{manterLoteMB.itens}" var="item">
+				<f:facet name="header">
+					<h:outputText value="Itens do Lote" />
+				</f:facet>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Valor">
+					<h:outputText value="#{item.valor}">
+						<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton value="OK" icon="ui-icon-arrow-1-w" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('loteItemDlg').hide();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

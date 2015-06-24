@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="lotesAddDlg" id="lotesAddDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="formTabelaAddLotes">
+			<p:dataTable id="tabelaLotes" value="#{manterLeilaoMB.lotes}" var="lote" selection="#{manterLeilaoMB.lotesSelecionados}" rowKey="#{lote.idLote}">
+				<p:column selectionMode="multiple" style="width:50px;text-align:center"/>
+				<p:column headerText="Código">
+					<h:outputText value="#{lote.idLote}" />
+				</p:column>
+	
+				<p:column headerText="Comitente">
+					<h:outputText value="#{lote.comitente.nome}" />
+				</p:column>
+				
+				<p:column headerText="Valor Inicial">
+					<h:outputText value="#{lote.valorTotal}">
+						<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<br />
+			<br />
+			<p:commandButton value="Adicionar Lotes" actionListener="#{manterLeilaoMB.adicionarLotes()}" onclick="PF('lotesAddDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" update=":leilaoEditDlgId"/>
+			<p:commandButton value="Cancelar" onclick="PF('lotesAddDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

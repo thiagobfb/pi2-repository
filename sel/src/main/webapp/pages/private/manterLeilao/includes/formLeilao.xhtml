@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="leilaoEditDlg" id="leilaoEditDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="leilaoEditDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel for="campoNomeLeilao" value="Nome: " />
+				<p:inputText id="campoNomeLeilao" value="#{manterLeilaoMB.leilao.nome}" />
+				<p:message for="campoNomeLeilao" />
+				
+				<p:outputLabel for="campoLocalLeilao" value="Local: " />
+				<p:inputText id="campoLocalLeilao" value="#{manterLeilaoMB.leilao.local}" required="true" requiredMessage="Adicione um local" />
+				<p:message for="campoLocalLeilao" />
+				
+				<p:outputLabel for="campoDataLeilao" value="Data e Hora: " />
+				<p:calendar id="campoDataLeilao" value="#{manterLeilaoMB.leilao.data}" mask="true" pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3" minHour="9" maxHour="19" stepMinute="5" stepSecond="30"/>
+				<p:message for="campoDataLeilao" />
+				
+			</p:panelGrid>
+			<br />
+			<br />
+			<p:dataTable value="#{manterLeilaoMB.leilao.leiloeiros}" var="leiloeiro" emptyMessage="Não existem leiloeiros adicionados">
+				<p:column headerText="Nome Leiloeiro">
+					<h:outputText value="#{leiloeiro.nome}" />
+				</p:column>
+			</p:dataTable>
+			<br />
+			<br />
+			<p:dataTable value="#{manterLeilaoMB.leilao.lotes}" var="lote" emptyMessage="Não existem lotes adicionados">
+				<p:column headerText="Código Lote">
+					<h:outputText value="#{lote.idLote}" />
+				</p:column>
+			</p:dataTable>
+			<br />
+			<br />
+			<p:panelGrid columns="4">
+				<p:commandButton value="Selecionar Leiloeiros" action="#{manterLeilaoMB.recuperarLeiloeiros()}" onclick="PF('leilaoEditDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leiloeiroDlg').show();" update=":leiloeiroDlgId" />
+				<p:commandButton value="Selecionar Lotes" action="#{manterLeilaoMB.recuperarLotes()}" onclick="PF('leilaoEditDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('lotesAddDlg').show();" update=":lotesAddDlgId" />
+				<p:commandButton value="Salvar" action="#{manterLeilaoMB.salvarOuAlterarLeilao()}" oncomplete="closeDialogIfSucess(xhr, status, args, leilaoEditDlg 'leilaoEditDlgId')" />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterLeilaoMB.zerarLeilao()}" onclick="PF('leilaoEditDlg').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

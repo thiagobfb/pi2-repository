@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<h:form id="formDadosLeilao">
+				<p:panelGrid>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Código do Leilão: "  />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.idLeilao}" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nome do Leilão: "  />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.nome}" />
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Local: "  />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.local}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Data: " />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.data}">
+								<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/> 
+							</h:outputText>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Hora: " />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.data}">
+								<f:convertDateTime type="time" pattern="HH:mm:ss"/>  
+							</h:outputText>
+						</p:column>
+					</p:row>					
+					
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Status: " />
+						</p:column>
+						
+						<p:column>
+							<h:outputText value="#{realizarLeilaoMB.leilao.status}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column colspan="2">
+							<p:dataList value="#{realizarLeilaoMB.leilao.leiloeiros}" var="leiloeiro" type="ordered">
+								<f:facet name="header">
+									Leiloeiros
+								</f:facet>
+								<h:outputText value="#{leiloeiro.nome}" />
+							</p:dataList>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:commandButton value="Selecionar Leilão" action="#{realizarLeilaoMB.prepararAlteracao()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leiloesDeHojeDlg').show();" update=":leiloesDeHojeId" />
+						</p:column>
+						
+						<p:column>
+							<p:commandButton value="Finalizar Leilão" action="#{realizarLeilaoMB.finalizarLeilao()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide();" update=":formDadosLeilao, :formTabelaLotesLeilao:tabelaLotesLeilao, :messages" />
+						</p:column>
+					</p:row>					
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<div class="row">
+			<h:form id="formTabelaLotesLeilao">
+				<p:dataTable id="tabelaLotesLeilao" value="#{realizarLeilaoMB.lotes}" var="lote" emptyMessage="Todos os lotes foram arrematados" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Código">
+						<h:outputText value="#{lote.idLote}" />
+					</p:column>
+	
+					<p:column headerText="Comitente">
+						<h:outputText value="#{lote.comitente.nome}" />
+					</p:column>
+								
+					<p:column headerText="Valor Total">
+						<h:outputText value="#{lote.valorTotal}">
+							<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Status">
+						<h:outputText value="#{lote.status}" />
+					</p:column>
+	
+					<p:column headerText="Ações">
+						<p:commandButton value="Ver Itens" action="#{realizarLeilaoMB.recuperarItens()}" icon="ui-icon-bullet" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteItemDlg').show();" update=":loteItemDlgId" ajax="true">
+							<f:setPropertyActionListener target="#{realizarLeilaoMB.lote}" value="#{lote}" />
+<!-- 							<f:param name="loteID" id="loteID" value="#{lote.idLote}" /> -->
+						</p:commandButton>
+	
+						<p:spacer width="10px" />
+						<p:commandButton value="Arrematar" action="#{realizarLeilaoMB.recuperarObjeto()}" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('arremateDlg').show();" update=":arremateDlgId" ajax="true">
+<!-- 							<f:setPropertyActionListener target="#{realizarLeilaoMB.lote}" value="#{lote}" /> -->
+							<f:param name="loteID" id="loteArremateID" value="#{lote.idLote}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<br/>
+
+			<ui:include src="/pages/private/realizarLeilao/includes/formArremate.xhtml" />
+			<ui:include src="/pages/private/realizarLeilao/includes/itensLote.xhtml" />
+			<ui:include src="/pages/private/realizarLeilao/includes/selecionarLeilao.xhtml" />
+			<ui:include src="/pages/private/loadingDialog.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>

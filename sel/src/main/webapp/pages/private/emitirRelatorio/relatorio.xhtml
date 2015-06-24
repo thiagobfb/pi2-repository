@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<h:form id="formFiltroRelatorio">
+				<p:panelGrid columns="2">
+					<h:outputLabel value="Data: "  />
+					<p:calendar id="filtroData" value="#{relatorioMB.filtroData}" mask="true" pattern="MM/dd/yyyy" />
+					
+					<h:outputLabel value="Local: " />
+					<p:inputText id="filtroLocal" value="#{relatorioMB.filtroLocal}" />
+
+					<p:commandButton value="Gerar Relatório" action="#{relatorioMB.gerarRelatorio()}" ajax="false" />
+					<p:commandButton value="Cancelar" actionListener="#{relatorioMB.zerarCampos()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteDlg').show();" update=":formFiltroRelatorio" ajax="true" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<ui:include src="/pages/private/loadingDialog.xhtml" />
+	</ui:define>
+</ui:composition>

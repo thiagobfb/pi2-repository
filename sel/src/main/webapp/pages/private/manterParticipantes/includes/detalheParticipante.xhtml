@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="partDetDlg" id="partDetDlgId" width="500" modal="true" closable="false" draggable="false" resizable="false">
+		<h:form id="partDetDlgForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome: " />
+				<h:outputText value="#{manterParticipanteMB.participante.nome}" />
+				<h:outputText value="CPF: " />
+				<h:outputText value="#{manterParticipanteMB.participante.username}" />
+				<h:outputText value="Status: " />
+				<h:outputText value="#{manterParticipanteMB.participante.status}" />
+			</h:panelGrid>
+ 
+			<p:dataTable value="#{manterParticipanteMB.participante.perfis}" var="perfil">
+				<p:column headerText="Perfis do Participante">
+					<h:outputText value="#{perfil.idPerfil}" /> - <h:outputText value="#{perfil.descricao}" />
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton value="OK" icon="ui-icon-arrow-1-w" actionListener="#{manterParticipanteMB.zerarParticipante()}" onclick="PF('partDetDlg').hide();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

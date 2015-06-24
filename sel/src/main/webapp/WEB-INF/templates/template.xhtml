@@ -14,32 +14,34 @@
 	<h:outputStylesheet name="bootstrap-responsive.css" library="css" />
 	<h:outputStylesheet name="bootstrap-theme.css" library="css" />
 	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
-	<h:outputScript name="jquery-1.11.3.js" library="js" />
+	<h:outputStylesheet name="style.css" library="css" />
+<!-- 	<h:outputScript name="jquery-1.11.3.js" library="js" /> -->
 	<h:outputScript name="bootstrap.js" library="js" />
 	<h:outputScript name="bootstrap.min.js" library="js" />
+	<h:outputScript name="jquery.maskedinput.js" library="js" />
+	<h:outputScript name="jquery.maskMoney.js" library="js" />
+	<h:outputScript name="funcoes.js" library="js" />
 	<div class="container">
 		<div id="header">
-				<h:graphicImage library="img" name="layout_upis_02.gif" />
-				<hr />
-				<h:form>
-					<p:menubar id="menuPrincipal">
-						<p:menuitem value="Realizar Leilão" url="#" />
-						<p:menuitem  value="Leilões" url="#" />
-						<p:submenu label="Participantes">
-							<p:menuitem value="Leiloeiros" url="#" />
-							<p:menuitem value="Comitentes" url="#" />
-							<p:menuitem value="Arrematantes" url="#" />
-							<p:menuitem value="Administradores" action="administradores" />
-						</p:submenu>
-						<p:menuitem value="Lotes" url="#" />
-						<p:menuitem value="Itens" url="#" />
-						<p:menuitem value="Logout" url="/logout" icon="ui-icon-extlink" />
-					</p:menubar>
-				</h:form>
-				<br />
-				<p:messages />
-				<br />
-			</div>
+			<h:graphicImage library="img" name="layout_upis_02.gif" />
+			<hr />
+			<h:form>
+				<p:menubar id="menuPrincipal">
+					<p:menuitem value="" icon="ui-icon-home" action="index" />
+					<p:menuitem value="Realizar Leilão" action="leilao" />
+					<p:menuitem value="Leilões" action="leiloes" />
+					<p:menuitem value="Participantes" action="participantes" />
+					<p:menuitem value="Lotes" action="lotes" />
+					<p:menuitem value="Itens" action="itens" />
+					<p:menuitem value="Relatório" action="relatorio" />
+					<p:menuitem value="Logout" url="/logout" icon="ui-icon-extlink" />
+				</p:menubar>
+			</h:form>
+			<br />
+			<h:outputText value="Bem-vindo #{participanteSession.participante.nome}" style="float:right;" />
+			<br />
+			<p:messages id="messages" />
+			<br />
 			<ui:insert name="conteudo">
 			Espaço para o conteúdo da tela
 			</ui:insert>
@@ -48,6 +50,7 @@
 				<hr />
 				2015 UPIS. Todos os direitos reservados.
 			</div>
+		</div>
 	</div>
 </h:body>
 </html>

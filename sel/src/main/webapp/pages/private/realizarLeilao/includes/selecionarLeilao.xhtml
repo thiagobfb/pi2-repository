@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="leiloesDeHojeDlg" id="leiloesDeHojeId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="formTabelaLeiloesDeHoje">
+			<p:dataTable id="tabelaLeiloesDeHoje" value="#{realizarLeilaoMB.leiloesDeHoje}" var="leilao" emptyMessage="Não existem leilões agendados para hoje" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" selection="#{realizarLeilaoMB.leilao}" rowKey="#{leilao.idLeilao}">
+				<p:column selectionMode="single" style="width:50px;text-align:center"/>
+							
+				<p:column headerText="Nome">
+					<h:outputText value="#{leilao.nome}" />
+				</p:column>
+				
+				<p:column headerText="Local">
+					<h:outputText value="#{leilao.local}" />
+				</p:column>
+								
+				<p:column headerText="Data">
+					<h:outputText value="#{leilao.data}">
+						<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>  
+					</h:outputText>
+				</p:column>
+					
+				<p:column headerText="Hora">
+					<h:outputText value="#{leilao.data}">
+						<f:convertDateTime type="time" pattern="HH:mm:ss"/>  
+					</h:outputText>
+				</p:column>
+								
+				<p:column headerText="Status">
+					<h:outputText value="#{leilao.status}" />
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton value="Selecionar" actionListener="#{realizarLeilaoMB.selecionarLeilao()}" onclick="PF('leiloesDeHojeDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide();" update=":formDadosLeilao, :formTabelaLotesLeilao:tabelaLotesLeilao"/>
+			<p:commandButton value="Cancelar" onclick="PF('leiloesDeHojeDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

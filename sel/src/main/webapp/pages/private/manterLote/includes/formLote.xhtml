@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="loteDlg" id="loteDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="loteDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel for="campoValorInicial" value="Valor Inicial: " />
+				<h:outputText id="campoValorInicial" value="#{manterLoteMB.valorLote}">
+					<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+				</h:outputText>
+				<p:message for="campoValorInicial" />
+				
+				<p:outputLabel for="comitente" value="Comitente: " />
+				<p:autoComplete id="comitente" value="#{manterLoteMB.lote.comitente}" required="true" requiredMessage="Adicione um comitente" completeMethod="#{manterLoteMB.completeParticipantes}" var="comitente" itemLabel="#{comitente.nome}" itemValue="#{comitente}" converter="genericConverter" forceSelection="true" />
+				<p:message for="comitente" />
+			</p:panelGrid>
+			<br />
+			<br />
+			<p:dataTable value="#{manterLoteMB.lote.itens}" var="item" emptyMessage="Não existe itens adicionados">
+				<p:column headerText="Item Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+			</p:dataTable>
+			<br />
+			<br />
+			<p:panelGrid columns="3">
+<!-- 				<p:commandButton value="Selecionar Comitente" action="#{manterLoteMB.recuperarComitentes()}" onclick="PF('loteDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('comitenteDlg').show();" update=":comitenteDlgId" /> -->
+				<p:commandButton value="Selecionar Itens" action="#{manterLoteMB.recuperarItens()}" onclick="PF('loteDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('itensDlg').show();" update=":itensDlgId" />
+				<p:commandButton value="Salvar" action="#{manterLoteMB.salvarOuAlterarLote()}" oncomplete="closeDialogIfSucess(xhr, status, args, loteDlg 'loteDlgId')" />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('partDlg').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

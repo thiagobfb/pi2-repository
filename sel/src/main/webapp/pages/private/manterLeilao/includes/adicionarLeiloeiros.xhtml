@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="leiloeiroDlg" id="leiloeiroDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="formTabelaLeiloeiro">
+			<p:dataTable id="tabelaleiloeiro" value="#{manterLeilaoMB.leiloeiros}" var="leiloeiro" selection="#{manterLeilaoMB.leiloeirosSelecionados}" rowKey="#{leiloeiro.idParticipante}">
+				<p:column selectionMode="multiple" style="width:50px;text-align:center"/>
+				<p:column headerText="Nome">
+					<h:outputText value="#{leiloeiro.nome}" />
+				</p:column>
+	
+				<p:column headerText="CPF">
+					<h:outputText value="#{leiloeiro.username}">
+						<f:converter converterId="cpfConverter" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="Adicionar Leiloeiro" actionListener="#{manterLeilaoMB.adicionarLeiloeiros()}" onclick="PF('leiloeiroDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" update=":leilaoEditDlgId"/>
+			<p:commandButton value="Cancelar" onclick="PF('leiloeiroDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<h:form id="formPesquisaLote">
+				<p:panelGrid columns="2">
+					<h:outputLabel value="Comitente: "  />
+					<p:autoComplete id="campoPesquisaComitente" value="#{manterLoteMB.pesquisaComitente}" completeMethod="#{manterLoteMB.completeParticipantes}" var="participante" itemLabel="#{participante.nome}" itemValue="#{participante}" converter="genericConverter" forceSelection="true" />
+					
+					<h:outputLabel value="Arrematante: "  />
+					<p:autoComplete id="campoPesquisaArrematante" value="#{manterLoteMB.pesquisaArrematante}"  completeMethod="#{manterLoteMB.completeParticipantes}" var="participante" itemLabel="#{participante.nome}" itemValue="#{participante}" converter="genericConverter" forceSelection="true" />
+
+					<h:outputLabel value="Número Leilão: " />
+					<p:inputText id="campoPesquisaNumLeilao" value="#{manterLoteMB.pesquisaNumeroLeilao}">
+						<f:validateLongRange minimum="1" maximum="100" />
+					</p:inputText>
+
+					<p:commandButton value="Pesquisar Lotes" action="#{manterLoteMB.pesquisarLotes()}" update=":formTabelaLotes:tabelaLotes" />
+					<p:commandButton value="Novo Lote" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteDlg').show();" update=":loteDlgId" ajax="true" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<div class="row">
+			<h:form id="formTabelaLotes">
+				<p:dataTable id="tabelaLotes" value="#{manterLoteMB.listaLotes}" var="lote" emptyMessage="Não existem lotes cadastrados" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Código">
+						<h:outputText value="#{lote.idLote}" />
+					</p:column>
+	
+					<p:column headerText="Comitente">
+						<h:outputText value="#{lote.comitente.nome}" />
+					</p:column>
+					
+					<p:column headerText="Arrematante">
+						<h:outputText value="#{lote.arrematante.nome}" />
+					</p:column>
+					
+					<p:column headerText="Valor Total">
+						<h:outputText value="#{lote.valorTotal}">
+							<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Valor Lance Final">
+						<h:outputText value="#{lote.valorLanceFinal}">
+							<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Status">
+						<h:outputText value="#{lote.status}" />
+					</p:column>
+	
+						<p:column headerText="Ações">
+							<p:commandButton value="Detalhes" icon="ui-icon-bullet" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteDetDlg').show();" update=":loteDetDlgId" ajax="true">
+								<f:setPropertyActionListener target="#{manterLoteMB.lote}" value="#{lote}" />
+<!-- 								<f:param name="loteId" id="loteId" value="#{lote.idLote}" /> -->
+							</p:commandButton>
+	
+							<p:spacer width="10px" />
+							<p:commandButton value="Alterar" action="#{manterLoteMB.prepararAlteracao()}" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteDlg').show();" update=":loteDlgId" ajax="true">
+								<f:setPropertyActionListener target="#{manterLoteMB.lote}" value="#{lote}" />
+<!-- 								<f:param name="loteId" id="loteId" value="#{lote.idLote}" /> -->
+							</p:commandButton>
+	
+							<p:spacer width="10px" />
+							<p:commandButton value="Excluir" icon="ui-icon-trash" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('loteExcluirDlg').show();" update=":loteExcluirDlgId" ajax="true">
+								<f:setPropertyActionListener target="#{manterLoteMB.lote}" value="#{lote}" />
+<!-- 								<f:param name="loteId" id="loteId" value="#{lote.idLote}" /> -->
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+			</h:form>
+			<ui:include src="/pages/private/manterLote/includes/adicionarComitente.xhtml" />
+			<ui:include src="/pages/private/manterLote/includes/adicionarItens.xhtml" />
+			<ui:include src="/pages/private/manterLote/includes/detalheLote.xhtml" />
+			<ui:include src="/pages/private/manterLote/includes/formLote.xhtml" />
+			<ui:include src="/pages/private/manterLote/includes/excluirLote.xhtml" />
+			<ui:include src="/pages/private/loadingDialog.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>

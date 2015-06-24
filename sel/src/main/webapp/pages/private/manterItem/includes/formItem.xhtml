@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<!-- 	<h:outputScript name="jquery-1.11.3.js" library="js" /> -->
+	<p:dialog widgetVar="itemDlg" id="itemDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center" header="Formulário Item">
+		<h:form id="loteDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel for="campoDescricao" value="Descrição: " />
+				<p:inputTextarea id="campoDescricao" value="#{manterItemMB.item.descricao}" required="true" requiredMessage="Digite a Descrição do Item" />
+				<p:message for="campoDescricao" />
+				
+				<p:outputLabel for="campoValorItem" value="Valor: " />
+				<p:inputText id="campoValorItem" value="#{manterItemMB.item.valor}" required="true" requiredMessage="Digite o preço do Item" styleClass="valorMoeda">
+					<f:converter converterId="moedaConverter"/>
+				</p:inputText>
+				<p:message for="campoValorItem" />
+				
+				<p:commandButton value="Salvar" action="#{manterItemMB.salvarOuAlterarItem()}" oncomplete="closeDialogIfSucess(xhr, status, args, itemDlg 'itemDlgId')" />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterItemMB.zerarItem()}" onclick="PF('itemDlg').hide();" />
+			</p:panelGrid>
+		</h:form>
+		<script type="text/javascript">
+		$(document).ready(mascaraValorItem);
+		</script>
+	</p:dialog>
+</h:body>
+</html>

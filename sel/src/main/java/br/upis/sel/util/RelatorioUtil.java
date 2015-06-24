@@ -104,6 +104,7 @@ public class RelatorioUtil {
 	public static void gerarMultiplosRelatorios(FacesContext context,
 			List<JasperPrint> jasperPrints) {
 		try {
+//			List<ExporterInputItem> itens = gerarListaExportInputItem(jasperPrints);
 			JRPdfExporter exporter = new JRPdfExporter();
 			HttpServletResponse response = (HttpServletResponse) context
 					.getExternalContext().getResponse();
@@ -115,6 +116,9 @@ public class RelatorioUtil {
 			exporter.setParameter(
 					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
 					Boolean.TRUE);
+			
+//			exporter.setExporterInput(new SimpleExporterInput(itens));
+//			exporter.setExporterOutput(new SimpleExpor);
 			exporter.exportReport();
 
 			byte[] retornoArray = retorno.toByteArray();
@@ -142,13 +146,20 @@ public class RelatorioUtil {
 	public static Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
-					"jdbc:jtds:sqlserver://192.168.30.3:1433/vendas",
-					"mauricio.garcia", "@#4548541fjalkdi");
+					"jdbc:mysql://localhost:3306/pi2project-db",
+					"root", "root");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
+//	private static List<ExporterInputItem> gerarListaExportInputItem(List<JasperPrint> prints) {
+//		List<ExporterInputItem> itens = new ArrayList<ExporterInputItem>();
+//		for (JasperPrint print : prints) {
+//			itens.add(new SimpleExporterInputItem(print));
+//		}
+//		return itens;
+//	}
 	// public void init() throws JRException {
 	// JRBeanCollectionDataSource beanCollectionDataSource = new
 	// JRBeanCollectionDataSource(

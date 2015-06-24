@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<h:form id="formPesquisa">
+				<p:panelGrid columns="2">
+					<h:outputLabel value="Nome: " />
+					<p:inputText id="campoPesquisaNome" value="#{manterParticipanteMB.pesquisaNome}" />
+
+					<h:outputLabel value="CPF: " />
+					<p:inputMask id="campoPesquisaCPF" value="#{manterParticipanteMB.pesquisaCPF}" mask="999.999.999-99" />
+
+					<p:commandButton value="Pesquisar Participantes" action="#{manterParticipanteMB.pesquisarParticipantes()}" update=":formTabelaParticipantes:tabelaParticipantes" />
+					<p:commandButton value="Novo Participante" actionListener="#{manterParticipanteMB.zerarParticipante()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('partDlg').show();" update=":partDlgId" ajax="true" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<div class="row">
+			<h:form id="formTabelaParticipantes">
+				<p:dataTable id="tabelaParticipantes" value="#{manterParticipanteMB.listaParticipantes}" var="participante" emptyMessage="Não existem participantes cadastrados" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Nome">
+						<h:outputText value="#{participante.nome}" />
+					</p:column>
+	
+					<p:column headerText="CPF">
+						<h:outputText value="#{participante.username}">
+							<f:converter converterId="cpfConverter" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Situação">
+						<h:outputText value="#{participante.status}" />
+					</p:column>
+	
+						<p:column headerText="Ações">
+							<p:commandButton value="Detalhes" icon="ui-icon-bullet" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('partDetDlg').show();" update=":partDetDlgId" ajax="true">
+								<f:setPropertyActionListener target="#{manterParticipanteMB.participante}" value="#{participante}" />
+<!-- 								<f:param name="participanteId" id="participanteId" value="#{participante.idParticipante}" /> -->
+							</p:commandButton>
+	
+							<p:spacer width="10px" />
+							<p:commandButton value="Alterar" action="#{manterParticipanteMB.prepararAlteracao()}" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('partDlg').show();" update=":partDlgId" ajax="true">
+								<f:setPropertyActionListener target="#{manterParticipanteMB.participante}"	value="#{participante}" />
+<!-- 								<f:param name="participanteId" id="participanteId" value="#{participante.idParticipante}" /> -->
+							</p:commandButton>
+	
+							<p:spacer width="10px" />
+							<p:commandButton value="Desativar" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('partDesDlg').show();" update=":partDesDlgId" ajax="true" rendered="#{participante.enabled}">
+								<f:setPropertyActionListener target="#{manterParticipanteMB.participante}"	value="#{participante}" />
+<!-- 								<f:param name="participanteId" id="participanteId" value="#{participante.idParticipante}" /> -->
+							</p:commandButton>
+							<p:commandButton value="Reativar" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('partReDlg').show();" update=":partReDlgId" ajax="true" rendered="#{!participante.enabled}">
+								<f:setPropertyActionListener target="#{manterParticipanteMB.participante}"	value="#{participante}" />
+<!-- 								<f:param name="participanteId" id="participanteId" value="#{participante.idParticipante}" /> -->
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+			</h:form>
+			<ui:include src="/pages/private/manterParticipantes/includes/detalheParticipante.xhtml" />
+			<ui:include src="/pages/private/manterParticipantes/includes/formParticipante.xhtml" />
+			<ui:include src="/pages/private/manterParticipantes/includes/desativarParticipante.xhtml" />
+			<ui:include src="/pages/private/manterParticipantes/includes/reativarParticipante.xhtml" />
+			<ui:include src="/pages/private/loadingDialog.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>

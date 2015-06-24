@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<h:outputScript name="calendar.js" library="js" />
+		<div class="row">
+			<h:form id="formPesquisaLeilao">
+				<p:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Nome: "  />
+					<p:inputText id="campoPesquisaNome" value="#{manterLeilaoMB.pesquisaNome}" />
+							
+					<h:outputLabel value="Data: "  />
+					<p:calendar id="campoPesquisaData" value="#{manterLeilaoMB.pesquisaData}" locale="pt_BR" mask="true" pattern="dd/MM/yyyy" timeZone="GMT-3">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+					</p:calendar>
+								
+					<h:outputLabel value="Local: "  />
+					<p:inputText id="campoPesquisaLocal" value="#{manterLeilaoMB.pesquisaLocal}" />
+			
+					<p:commandButton value="Pesquisar Leilões" action="#{manterLeilaoMB.pesquisarLeilao()}" update=":formTabelaLeilao:tabelaLeilao" />
+					<p:commandButton value="Novo Leilão" actionListener="#{manterLeilaoMB.zerarLeilao()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" update=":leilaoEditDlgId" ajax="true" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<div class="row">		
+			<h:form id="formTabelaLeilao">
+				<p:dataTable id="tabelaLeilao" value="#{manterLeilaoMB.listaLeilao}" var="leilao" emptyMessage="Não existem leilões cadastrados" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+								
+					<p:column headerText="Nome">
+						<h:outputText value="#{leilao.nome}" />
+					</p:column>
+				
+					<p:column headerText="Local">
+						<h:outputText value="#{leilao.local}" />
+					</p:column>
+								
+					<p:column headerText="Data">
+						<h:outputText value="#{leilao.data}">
+							<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>  
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Hora">
+						<h:outputText value="#{leilao.data}">
+							<f:convertDateTime type="time" pattern="HH:mm:ss"/>  
+						</h:outputText>
+					</p:column>
+								
+					<p:column headerText="Status">
+						<h:outputText value="#{leilao.status}" />
+					</p:column>
+				
+					<p:column headerText="Ações">
+						<p:commandButton value="Detalhes" icon="ui-icon-bullet" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoDetDlg').show();" update=":leilaoDetDlgId" ajax="true">
+							<f:setPropertyActionListener target="#{manterLeilaoMB.leilao}" value="#{leilao}" />
+<!-- 								<f:param name="leilaoId" id="leilaoId" value="#{leilao.idLeilao}" /> -->
+						</p:commandButton>
+				
+						<p:spacer width="10px" />
+						<p:commandButton value="Alterar" action="#{manterLeilaoMB.prepararAlteracao()}" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoEditDlg').show();" update=":leilaoEditDlgId" rendered="#{leilao.editavel}" ajax="true">
+							<f:setPropertyActionListener target="#{manterLeilaoMB.leilao}" value="#{leilao}" />
+<!-- 								<f:param name="leilaoId" id="leilaoId" value="#{leilao.idLeilao}" /> -->
+						</p:commandButton>
+				
+						<p:spacer width="10px" />
+						<p:commandButton value="Cancelar" icon="ui-icon-trash" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoCancelarDlg').show();" update=":leilaoCancelarDlgId" rendered="#{!leilao.cancelado}" ajax="true">
+							<f:setPropertyActionListener target="#{manterLeilaoMB.leilao}" value="#{leilao}" />
+<!-- 								<f:param name="leilaoId" id="leilaoId" value="#{leilao.idLeilao}" /> -->
+						</p:commandButton>		
+						<p:commandButton value="Reagendar" icon="ui-icon-trash" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoReagendarDlg').show();" update=":leilaoReagendarDlgId" rendered="#{leilao.cancelado}" ajax="true">
+							<f:setPropertyActionListener target="#{manterLeilaoMB.leilao}" value="#{leilao}" />
+<!-- 								<f:param name="leilaoId" id="leilaoId" value="#{leilao.idLeilao}" /> -->
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<ui:include src="/pages/private/manterLeilao/includes/formLeilao.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/adicionarLeiloeiros.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/visualizarItens.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/adicionarLotes.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/detalheLeilao.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/reagendarLeilao.xhtml" />
+			<ui:include src="/pages/private/manterLeilao/includes/cancelarLeilao.xhtml" />
+			<ui:include src="/pages/private/loadingDialog.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>

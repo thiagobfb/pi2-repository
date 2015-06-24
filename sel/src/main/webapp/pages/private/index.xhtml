@@ -7,18 +7,26 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-		<h:form id="formLogin">
-			<p:panelGrid columns="3">
-				<p:outputLabel value="CPF: " for="campoCpf" />
-				<p:inputText id="campoCpf" />
-				<p:message for="campoCpf" />
-				
-				<p:outputLabel value="Senha: " for="campoSenha" />
-				<p:password id="campoSenha"  />
-				<p:message for="campoSenha" />
-
-				<p:commandButton value="Entrar" />
-			</p:panelGrid>
+		<h2>Detalhes do Usuário</h2>
+		<h:form id="partDetForm" prependId="false">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome: " />
+				<h:outputText id="infoNome" value="#{participanteSession.participante.nome}" />
+				<p:outputLabel value="CPF: " />
+				<h:outputText id="infoCPF" value="#{participanteSession.participante.username}">
+					<f:converter converterId="cpfConverter" />
+				</h:outputText>
+				<p:outputLabel value="Status:  " />
+				<h:outputText id="infoStatus" value="#{participanteSession.participante.status}" />
+			</h:panelGrid>
+			<br />
+ 			<hr />
+ 			<br />
+			<p:dataTable value="#{participanteSession.participante.perfis}" var="perfil">
+				<p:column headerText="Perfis do Participante">
+					<h:outputText value="#{perfil.idPerfil}" /> - <h:outputText value="#{perfil.descricao}" />
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

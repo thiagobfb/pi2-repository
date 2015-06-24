@@ -1,5 +1,7 @@
 package br.upis.sel.controller.bo.impl;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +14,9 @@ import br.upis.sel.model.entity.Participante;
 
 @Service
 @Transactional
-public class RealizarLoginBOImpl implements RealizarLoginBO {
+public class RealizarLoginBOImpl implements RealizarLoginBO, Serializable {
+	
+	private static final long serialVersionUID = -6982701604142934740L;
 	
 	@Autowired
 	private ParticipanteDAO participanteDAO;

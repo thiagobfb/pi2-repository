@@ -7,6 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.upis.sel.controller.facade.SELFacade;
 import br.upis.sel.model.entity.Participante;
@@ -14,6 +18,8 @@ import br.upis.sel.model.entity.Participante;
 @Controller
 public class RealizarLoginMB extends AbstractMB implements AuthenticationProvider {
 	
+	private static final long serialVersionUID = -1980011185324165060L;
+
 	@Autowired
 	private SELFacade facade;
 	
@@ -55,6 +61,23 @@ public class RealizarLoginMB extends AbstractMB implements AuthenticationProvide
 		SecurityContextHolder.getContext().setAuthentication(token);
 		
 	}
+	
+	//Spring Security see this :
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout) {
+		 
+		ModelAndView model = new ModelAndView();
+		if (error != null) {
+			model.addObject("error", "Invalid username and password!");
+		}
+	 
+		if (logout != null) {
+			model.addObject("msg", "You've been logged out successfully.");
+		}
+		model.setViewName("/login");
+		 
+		return model;
+	}
 
 	public String logout() {
 		SecurityContextHolder.clearContext();
@@ -87,6 +110,16 @@ public class RealizarLoginMB extends AbstractMB implements AuthenticationProvide
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	@Override
+	public void recuperarObjeto() {
+		//sem corpo aqui
+	}
+
+	@Override
+	public void prepararAlteracao() {
+		//sem corpo aqui
 	}
 	
 }

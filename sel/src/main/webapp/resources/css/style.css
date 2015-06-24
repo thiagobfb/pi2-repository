@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+#header-login {
+	margin: 0 auto;
+	padding: 10px;
+	width: 60%;
+	border: 1px solid #ACBECE;
+	border-radius: 5px;
+}
+
+#header {
+	margin: 0 auto;
+	padding: 10px;
+	width: 80%;
+	border: 1px solid #ACBECE;
+	border-radius: 5px;
+}
+
+#menuPrincipal {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.esconder_icone {
+	display: none;
+}
+
+.erro {
+	background-color: red;
+	clear: both;
+	border: 1px solid red;
+	border-radius: 5px; 
+}
+
+.erro p {
+	font-family: serif;
+	font-style: italic;
+	color: white;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="itemExcluirDlg" id="itemExcluirDlgId" height="150" width="500" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="itemExcluirDlgForm" prependId="false">
+			<h:outputText value="Excluir item nº #{manterItemMB.item.idItem}?" /><br/><br/>
+
+			<p:commandButton value="Sim" icon="ui-icon-plus" action="#{manterItemMB.excluirItem()}" oncomplete="closeDialogIfSucess(xhr, status, args, itemExcluirDlg 'itemExcluirDlgId')" />
+			<p:commandButton value="Não" icon="ui-icon-cancel" actionListener="#{manterItemMB.zerarItem()}" onclick="PF('itemExcluirDlg').hide();" type="button" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

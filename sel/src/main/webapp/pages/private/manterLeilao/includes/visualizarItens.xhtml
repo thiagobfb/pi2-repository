@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="visualizarItensDlg" id="visualizarItensDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="visualizarItensDlgForm" prependId="false">
+			
+			<br />
+			<br />
+			<p:dataTable value="#{manterLoteMB.lote.itens}" var="item" emptyMessage="Não existe itens adicionados">
+				<p:column headerText="Item Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+			</p:dataTable>
+			<br />
+			<br />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" onclick="PF('visualizarItensDlg').hide(); PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('leilaoDetDlg').show();" update=":leilaoDetDlgId"  />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

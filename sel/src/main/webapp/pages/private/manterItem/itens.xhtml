@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<h:form id="formPesquisaItem">
+				<p:panelGrid columns="2">
+					<h:outputLabel value="Descrição: " />
+					<p:inputText id="campoPesquisaDescricao" value="#{manterItemMB.pesquisaDescricao}" />
+
+					<h:outputLabel value="Número Lote: " />
+					<p:inputText id="campoPesquisaNumLote" value="#{manterItemMB.pesquisaNumeroLote}">
+						<f:validateLongRange minimum="1" maximum="100" />
+					</p:inputText>
+
+					<p:commandButton value="Pesquisar Itens" action="#{manterItemMB.pesquisarItens()}" update=":formTabelaItens:tabelaItens" />
+					<p:commandButton value="Novo Item" actionListener="#{manterItemMB.zerarItem()}" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('itemDlg').show();" update=":itemDlgId" ajax="true" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+		<br />
+		<div class="row">
+			<h:form id="formTabelaItens">
+				<p:dataTable id="tabelaItens" value="#{manterItemMB.itens}" var="item" emptyMessage="Não existem itens cadastrados" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Descrição">
+						<h:outputText value="#{item.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Valor">
+						<h:outputText value="#{item.valor}">
+							<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Lote">
+						<h:outputText value="#{item.lote.idLote}" />
+					</p:column>
+					
+					<p:column headerText="Status">
+						<h:outputText value="#{item.status}" />
+					</p:column>
+	
+					<p:column headerText="Ações">
+						<p:commandButton value="Detalhes" icon="ui-icon-bullet" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('itemDetDlg').show();" update=":itemDetDlgId" ajax="true">
+							<f:setPropertyActionListener target="#{manterItemMB.item}" value="#{item}" />
+<!-- 							<f:param name="itemId" id="itemId" value="#{participante.idParticipante}" /> -->
+						</p:commandButton>
+	
+						<p:spacer width="10px" />
+						<p:commandButton value="Alterar" icon="ui-icon-pencil" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('itemDlg').show();" update=":itemDlgId" rendered="#{item.editavel}" ajax="true">
+							<f:setPropertyActionListener target="#{manterItemMB.item}" value="#{item}" />
+<!--							<f:param name="itemId" id="itemId" value="#{participante.idParticipante}" /> -->
+						</p:commandButton>
+	
+						<p:spacer width="10px" />
+						<p:commandButton value="Excluir" icon="ui-icon-trash" onclick="PF('loadingDlg').show();" oncomplete="PF('loadingDlg').hide(); PF('itemExcluirDlg').show();" update=":itemExcluirDlgId" ajax="true" rendered="#{item.editavel}">
+							<f:setPropertyActionListener target="#{manterItemMB.item}" value="#{item}" />
+<!-- 							<f:param name="itemId" id="itemId" value="#{participante.idParticipante}" /> -->
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<ui:include src="/pages/private/manterItem/includes/detalheItem.xhtml" />
+			<ui:include src="/pages/private/manterItem/includes/formItem.xhtml" />
+			<ui:include src="/pages/private/manterItem/includes/excluirItem.xhtml" />
+			<ui:include src="/pages/private/loadingDialog.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>

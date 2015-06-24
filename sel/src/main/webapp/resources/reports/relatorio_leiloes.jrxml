@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_leiloes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a5edfa3-d5ab-42dd-9913-2fbce6d704ac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\PI2 Project\\repository\\sel\\src\\main\\webapp\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="idLeilao" class="java.lang.Long">
+		<fieldDescription><![CDATA[idLeilao]]></fieldDescription>
+	</field>
+	<field name="leiloeiros" class="java.util.List">
+		<fieldDescription><![CDATA[leiloeiros]]></fieldDescription>
+	</field>
+	<field name="local" class="java.lang.String">
+		<fieldDescription><![CDATA[local]]></fieldDescription>
+	</field>
+	<field name="lotes" class="java.util.List">
+		<fieldDescription><![CDATA[lotes]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="124" y="30" width="300" height="20" uuid="96988d44-7258-4f39-ae5c-ab4c7184c322"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA ELETRÔNICO DE LEILÕES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="41" width="100" height="20" uuid="8da195ba-eb48-4b60-b7cd-b2da212d2886"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="41" width="100" height="20" uuid="c70acd2b-7248-4974-8303-60e04ea3c069"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Local]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="41" width="100" height="20" uuid="0d714096-5166-4218-a384-5ea10bb8de6b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="41" width="100" height="20" uuid="ed3ce63f-f66e-46bf-9154-16d8408f8cc5"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="162" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="13" width="100" height="20" uuid="bad447c9-fef9-4feb-b8ac-06b4a0a4da19"/>
+				<textFieldExpression><![CDATA[$F{idLeilao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="13" width="100" height="20" uuid="bf883879-0088-4b73-b788-be5015ed283f"/>
+				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="13" width="100" height="20" uuid="57b466b5-2b7d-480b-ac88-69ac17ac0a09"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="13" width="100" height="20" uuid="8380608b-81cf-477f-8f5f-215d198a0d23"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="42" width="100" height="20" uuid="d79828cd-8b82-4271-a57c-1f9877e679af"/>
+				<text><![CDATA[Lotes]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="10" y="62" width="527" height="100" uuid="28d1398a-aaf7-415b-88d9-abea8d58b46c"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lotes})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorio_leiloes_lotes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

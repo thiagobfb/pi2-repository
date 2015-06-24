@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="partDlg" id="partDlgId" width="800" modal="true" closable="false"
+		draggable="false" resizable="false" position="center">
+		<h:form id="partDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel for="campoNome" value="Nome: " />
+				<p:inputText id="campoNome" value="#{manterParticipanteMB.participante.nome}" required="true" requiredMessage="Digite o Nome do Participante" />
+				<p:message for="campoNome" />
+				
+				<p:outputLabel for="cpf" value="CPF: " />
+				<p:inputMask id="cpf" value="#{manterParticipanteMB.participante.username}" required="true" requiredMessage="Digite o CPF do Participante" mask="999.999.999-99" />
+				<p:message for="cpf" />
+				
+				<p:outputLabel for="selecaoPerfis" value="Selecione os Perfis: " />
+				<p:selectManyCheckbox id="selecaoPerfis" value="#{manterParticipanteMB.perfisSelecionados}" required="true" requiredMessage="Selecione ao menos 1 perfil" layout="grid" columns="2" converter="genericConverter">
+					<f:selectItems value="#{manterParticipanteMB.perfis}" var="perfil" itemLabel="#{perfil.descricao}" itemValue="#{perfil}" />
+					<p:ajax listener="#{manterParticipanteMB.renderizarCamposDeSenha()}" update="partDlgForm" />
+				</p:selectManyCheckbox>
+				<p:message for="selecaoPerfis" />
+				
+				<p:outputLabel for="campoSenha" value="Senha: " rendered="#{manterParticipanteMB.renderizaCampoSenha}" />
+				<p:password id="campoSenha" value="#{manterParticipanteMB.participante.password}" rendered="#{manterParticipanteMB.renderizaCampoSenha}" />
+				<p:message for="campoSenha" rendered="#{manterParticipanteMB.renderizaCampoSenha}" />
+				
+				<p:commandButton value="Salvar" action="#{manterParticipanteMB.salvarOuAlterarParticipante()}" oncomplete="closeDialogIfSucess(xhr, status, args, partDlg 'partDlgId')" />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterParticipanteMB.zerarParticipante()}" onclick="PF('partDlg').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

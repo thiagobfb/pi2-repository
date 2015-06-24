@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="loteDetDlg" id="loteDetDlgId" width="500" modal="true" closable="false" draggable="false" resizable="false" header="Detalhes do Lote">
+<!-- 		prependId="false" -->
+		<h:form id="loteDetDlgForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="Código Lote: " />
+				<h:outputText value="#{manterLoteMB.lote.idLote}" />
+				
+				<h:outputText value="Comitente: " />
+				<h:outputText value="#{manterLoteMB.lote.comitente.nome}" />
+				
+				<h:outputText value="Arrematante: " />
+				<h:outputText value="#{manterLoteMB.lote.arrematante.nome}" />
+				
+				<h:outputText value="Valor Total: " />
+				<h:outputText value="#{manterLoteMB.lote.valorTotal}">
+					<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+				</h:outputText>
+				
+				<h:outputText value="Valor do Lance Final: " />
+				<h:outputText value="#{manterLoteMB.lote.valorLanceFinal}">
+					<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+				</h:outputText>
+				
+				<h:outputText value="Status: " />
+				<h:outputText value="#{manterLoteMB.lote.status}" />
+			</h:panelGrid>
+ 			<br />
+ 			<br />
+			<p:dataTable value="#{manterLoteMB.lote.itens}" var="item">
+				<f:facet name="header">
+					<h:outputText value="Itens do Lote" />
+				</f:facet>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Valor">
+					<h:outputText value="#{item.valor}">
+						<f:convertNumber currencySymbol="R$" locale="pt_BR" type="currency" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton value="OK" icon="ui-icon-arrow-1-w" actionListener="#{manterLoteMB.zerarLote()}" onclick="PF('loteDetDlg').hide();" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

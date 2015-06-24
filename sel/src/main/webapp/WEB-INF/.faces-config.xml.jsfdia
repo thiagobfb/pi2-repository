@@ -1,29 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:#pages#private#index.xhtml"
-  PATH="/pages/private/index.xhtml" SHAPE="70,128,0,0" model-entity="JSFProcessGroup">
+  PATH="/pages/private/index.xhtml" SHAPE="56,176,50,57" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#pages#private#index.xhtml:0" NAME="item"
    PATH="/pages/private/index.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID="administradores::#pages#private#manterParticipantes#administradores.xhtml"
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
     NAME="output"
-    PATH="/pages/private/manterParticipantes/administradores.xhtml"
-    TARGET="rules:#pages#private#manterParticipantes#administradores.xhtml"
-    TITLE="administradores" model-entity="JSFProcessItemOutput"/>
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output1"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output2"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output3" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM
-  NAME="rules:#pages#private#manterParticipantes#administradores.xhtml"
-  PATH="/pages/private/manterParticipantes/administradores.xhtml"
-  SHAPE="224,80,50,41" model-entity="JSFProcessGroup">
+  NAME="rules:#pages#private#manterParticipantes#participantes.xhtml"
+  PATH="/pages/private/manterParticipantes/participantes.xhtml"
+  SHAPE="560,48,50,57" model-entity="JSFProcessGroup">
   <PROCESS-ITEM
-   ID="rules:#pages#private#manterParticipantes#administradores.xhtml:0"
+   ID="rules:#pages#private#manterParticipantes#participantes.xhtml:0"
    NAME="item"
-   PATH="/pages/private/manterParticipantes/administradores.xhtml" model-entity="JSFProcessItem">
+   PATH="/pages/private/manterParticipantes/participantes.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
     NAME="output" PATH="/pages/private/index.xhtml"
-    SHAPE="273,112,392,112,392,224,48,224,48,136,63,136"
     TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output1"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output2"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output3" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#private#manterItem#itens.xhtml"
+  PATH="/pages/private/manterItem/itens.xhtml" SHAPE="168,560,50,105" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#private#manterItem#itens.xhtml:0"
+   NAME="item" PATH="/pages/private/manterItem/itens.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
+    NAME="output1"
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output2"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output3" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#private#manterLote#lotes.xhtml"
+  PATH="/pages/private/manterLote/lotes.xhtml" SHAPE="768,272,50,89" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#private#manterLote#lotes.xhtml:0"
+   NAME="item" PATH="/pages/private/manterLote/lotes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output1"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
+    NAME="output2"
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output3" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#private#manterLeilao#leiloes.xhtml"
+  PATH="/pages/private/manterLeilao/leiloes.xhtml" SHAPE="296,-8,50,89" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#private#manterLeilao#leiloes.xhtml:0"
+   NAME="item" PATH="/pages/private/manterLeilao/leiloes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
+    NAME="output1"
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output2"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output3"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#private#realizarLeilao#leilao.xhtml"
+  PATH="/pages/private/realizarLeilao/leilao.xhtml"
+  SHAPE="776,552,50,105" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#private#realizarLeilao#leilao.xhtml:0"
+   NAME="item" PATH="/pages/private/realizarLeilao/leilao.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output1" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
+    NAME="output2"
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output3"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output4"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="relatorio::#pages#private#emitirRelatorio#relatorio.xhtml"
+    NAME="output5" PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+    TARGET="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+    TITLE="relatorio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#private#emitirRelatorio#relatorio.xhtml"
+  PATH="/pages/private/emitirRelatorio/relatorio.xhtml"
+  SHAPE="580,617,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#pages#private#emitirRelatorio#relatorio.xhtml:0"
+   NAME="item" PATH="/pages/private/emitirRelatorio/relatorio.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index::#pages#private#index.xhtml"
+    NAME="output" PATH="/pages/private/index.xhtml"
+    TARGET="rules:#pages#private#index.xhtml" TITLE="index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leiloes::#pages#private#manterLeilao#leiloes.xhtml"
+    NAME="output1" PATH="/pages/private/manterLeilao/leiloes.xhtml"
+    TARGET="rules:#pages#private#manterLeilao#leiloes.xhtml"
+    TITLE="leiloes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="participantes::#pages#private#manterParticipantes#participantes.xhtml"
+    NAME="output2"
+    PATH="/pages/private/manterParticipantes/participantes.xhtml"
+    TARGET="rules:#pages#private#manterParticipantes#participantes.xhtml"
+    TITLE="participantes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lotes::#pages#private#manterLote#lotes.xhtml" NAME="output3"
+    PATH="/pages/private/manterLote/lotes.xhtml"
+    TARGET="rules:#pages#private#manterLote#lotes.xhtml" TITLE="lotes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="leilao::#pages#private#realizarLeilao#leilao.xhtml"
+    NAME="output4" PATH="/pages/private/realizarLeilao/leilao.xhtml"
+    TARGET="rules:#pages#private#realizarLeilao#leilao.xhtml"
+    TITLE="leilao" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="itens::#pages#private#manterItem#itens.xhtml" NAME="output5"
+    PATH="/pages/private/manterItem/itens.xhtml"
+    TARGET="rules:#pages#private#manterItem#itens.xhtml" TITLE="itens" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

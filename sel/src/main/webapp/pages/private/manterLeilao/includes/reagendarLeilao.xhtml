@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="leilaoReagendarDlg" id="leilaoReagendarDlgId" width="800" modal="true" closable="false" draggable="false" resizable="false" position="center">
+		<h:form id="leilaoReagendarDlgForm" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel for="campoDataReagendar" value="Data e Hora: " />
+				<p:calendar id="campoDataReagendar" value="#{manterLeilaoMB.leilao.data}" mask="true" pattern="MM/dd/yyyy HH:mm:ss" timeZone="GMT-3" minHour="9" maxHour="19" stepMinute="5" stepSecond="30"/>
+				<p:message for="campoDataReagendar" />
+			</p:panelGrid>
+			<br />
+			<br />
+			<p:panelGrid columns="2">
+				<p:commandButton value="Reagendar" action="#{manterLeilaoMB.reagendarLeilao()}" oncomplete="closeDialogIfSucess(xhr, status, args, leilaoReagendarDlg 'leilaoReagendarDlgId')" />
+				<p:commandButton value="Fechar" icon="ui-icon-arrow-1-w" actionListener="#{manterLeilaoMB.zerarLeilao()}" onclick="PF('leilaoReagendarDlg').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
