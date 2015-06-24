@@ -44,6 +44,11 @@ public class Application implements CommandLineRunner {
     private static final String ENTITY_PACKAGE = "hello";
 	private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 	private static final String SCHEMA_URL = "jdbc:mysql://localhost:3306/pi2project-db";
+	private static final String DB_USER = "root";
+	
+	//Senha pode variar de acordo com o ambiente
+//	private static final String DB_PASSWORD = "root";
+	private static final String DB_PASSWORD = "1234";
 
 	//Spring JPA
 	@Bean(name = "entityManagerFactory")
@@ -64,8 +69,8 @@ public class Application implements CommandLineRunner {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(DRIVER_CLASS_NAME);
 		dataSource.setUrl(SCHEMA_URL);
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
+		dataSource.setUsername(DB_USER);
+		dataSource.setPassword(DB_PASSWORD);
 		return dataSource;
 	}
 
