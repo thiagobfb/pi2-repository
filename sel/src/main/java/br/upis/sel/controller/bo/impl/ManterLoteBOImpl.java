@@ -14,12 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.upis.sel.controller.bo.ManterLoteBO;
+import br.upis.sel.enums.ItemStatus;
 import br.upis.sel.enums.LoteStatus;
 import br.upis.sel.enums.PerfilDescricao;
+import br.upis.sel.model.dao.ItemDAO;
 import br.upis.sel.model.dao.LeilaoDAO;
 import br.upis.sel.model.dao.LoteDAO;
 import br.upis.sel.model.dao.ParticipanteDAO;
 import br.upis.sel.model.dao.PerfilDAO;
+import br.upis.sel.model.entity.Item;
 import br.upis.sel.model.entity.Leilao;
 import br.upis.sel.model.entity.Lote;
 import br.upis.sel.model.entity.Participante;
@@ -44,6 +47,9 @@ public class ManterLoteBOImpl extends AbstractBOImpl implements ManterLoteBO {
 	
 	@Autowired
 	private PerfilDAO perfilDAO;
+	
+	@Autowired
+	private ItemDAO itemDAO;
 
 	@Override
 	public List<Lote> buscarTodosLotes() {
@@ -68,8 +74,21 @@ public class ManterLoteBOImpl extends AbstractBOImpl implements ManterLoteBO {
 				l.setStatus(LoteStatus.NAO_LEILOADO);
 			} 
 			
+			l.setItens(this.atribuirItens(l.getItens()));
 			this.loteDAO.save(l);
 		}
+	}
+
+	private List<Item> atribuirItens(List<Item> itens) {
+		Item i = null;
+		List<Item> alterados = new ArrayList<Item>();
+		for (Item item : itens) {
+			i = this.itemDAO.findOne(item.getIdItem());
+			i.setStatus(ItemStatus.ATRIBUIDO);
+			alterados.add(i);
+		}
+		return alterados;
+//		this.itemDAO.save(alterados);
 	}
 
 	private boolean validaLoteLeiloado(Lote l) {
