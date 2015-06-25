@@ -42,8 +42,8 @@ public class SELConfig {
 	private static final String DB_USER = "root";
 	
 	//Senha pode variar de acordo com o ambiente
-	private static final String DB_PASSWORD = "root";
-//	private static final String DB_PASSWORD = "1234";
+//	private static final String DB_PASSWORD = "root";
+	private static final String DB_PASSWORD = "1234";
 
 	//Spring JPA
 	@Bean(name = "entityManagerFactory")
